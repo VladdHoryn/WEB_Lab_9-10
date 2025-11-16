@@ -1,5 +1,5 @@
 // api/categories.ts
-import http from '@/http'
+import http from '@/api/http'
 import { normalizeApiError } from '@/utils/apiError'
 import type { Category } from '@/types/category'
 

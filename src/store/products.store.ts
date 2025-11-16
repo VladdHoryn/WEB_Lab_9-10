@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { productsApi } from "@/api/products";
+import { getProducts } from "@/api/products";
 import type { Product } from "@/types/product";
 
 export const useProductsStore = defineStore("products", {
@@ -34,7 +34,7 @@ export const useProductsStore = defineStore("products", {
           limit: this.limit,
         };
 
-        this.products = await productsApi.getProducts(params);
+        this.products = await getProducts(params);
       } catch (err: any) {
         this.error = err.message;
       } finally {
