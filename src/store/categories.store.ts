@@ -1,0 +1,26 @@
+import { defineStore } from "pinia";
+import { categoriesApi } from "@/api/categories";
+import type { Category } from "@/types/category";
+
+export const useCategoriesStore = defineStore("categories", {
+  state: () => ({
+    categories: [] as Category[],
+    loading: false,
+    error: null as string | null,
+  }),
+
+  actions: {
+    async fetchCategories() {
+      this.loading = true;
+      this.error = null;
+
+      try {
+        this.categories = await categoriesApi.getCategories();
+      } catch (err: any) {
+        this.error = err.message;
+      } finally {
+        this.loading = false;
+      }
+    },
+  },
+});
