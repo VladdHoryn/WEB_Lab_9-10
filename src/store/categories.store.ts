@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { categoriesApi } from "@/api/categories";
+import { getCategories } from "../api/categories";
 import type { Category } from "@/types/category";
 
 export const useCategoriesStore = defineStore("categories", {
@@ -15,7 +15,7 @@ export const useCategoriesStore = defineStore("categories", {
       this.error = null;
 
       try {
-        this.categories = await categoriesApi.getCategories();
+        this.categories = await getCategories();
       } catch (err: any) {
         this.error = err.message;
       } finally {

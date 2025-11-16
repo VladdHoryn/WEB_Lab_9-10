@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { productsApi } from "@/api/products";
+import {  getProductById } from "@/api/products";
 import type { Product } from "@/types/product";
 
 export const useProductStore = defineStore("product", {
@@ -15,7 +15,7 @@ export const useProductStore = defineStore("product", {
       this.error = null;
 
       try {
-        this.product = await productsApi.getProductById(id);
+        this.product = await getProductById(id);
       } catch (err: any) {
         this.error = err.message;
       } finally {
