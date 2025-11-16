@@ -1,9 +1,9 @@
 // api/products.ts
-import http from '@/http'
+import http from '@/api/http'
 import { normalizeApiError } from '@/utils/apiError'
 import type { Product } from '@/types/product'
 
-export async function getProducts(params?: Record<string, never>): Promise<Product[]> {
+export async function getProducts(params?: Record<string, any>): Promise<Product[]> {
   try {
     return await http.get('/products', { params })
   } catch (error) {
