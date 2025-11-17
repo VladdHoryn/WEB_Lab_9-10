@@ -1,6 +1,8 @@
 <template>
+  <Header />
+
   <div class="container py-4">
-    <h1 class="mb-4 text-center">Cart</h1>
+    <h1 class="mb-4 text-center text-primary">Cart</h1>
 
     <div v-if="items.length === 0" class="alert alert-info text-center">
       Cart is empty
@@ -20,17 +22,20 @@
     <div class="text-center">
       <button
         v-if="items.length"
-        class="btn btn-warning mt-3"
+        class="btn btn-primary mt-3"
         @click="clearCart"
       >
         Clear Cart
       </button>
     </div>
   </div>
+
+  <Footer />
 </template>
 
-
 <script setup lang="ts">
+import Header from "@/components/layout/Header.vue";
+import Footer from "@/components/layout/Footer.vue";
 import CartItem from "@/components/CarItem.vue";
 import { useCartStore } from "@/store/cart.store";
 
@@ -38,7 +43,6 @@ const store = useCartStore();
 store.loadFromLocalStorage();
 
 const items = store.items;
-
 const updateQuantity = store.updateQuantity;
 const removeFromCart = store.removeFromCart;
 const clearCart = store.clearCart;
