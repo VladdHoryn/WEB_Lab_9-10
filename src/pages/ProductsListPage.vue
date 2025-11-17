@@ -8,14 +8,24 @@
 
     <ProductList :products="store.products" class="mb-4" />
 
+    <!-- Loading Spinner -->
     <div v-if="store.loading" class="text-center py-4">
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
+
+    <!-- Error Message -->
     <div v-if="store.error" class="alert alert-danger">{{ store.error }}</div>
 
-    <Pagination class="d-flex justify-content-center mt-4" />
+    <!-- Pagination -->
+    <Pagination
+      class="d-flex justify-content-center mt-4"
+      :current-page="store.page"
+      :total-items="store.total"
+      :page-size="store.limit"
+      @update:page="onPageChange"
+    />
   </div>
 
   <Footer />
@@ -34,19 +44,34 @@ import { useProductsStore } from "@/store/products.store";
 const route = useRoute();
 const store = useProductsStore();
 
+// Застосовуємо фільтри з query-параметрів
 function applyQueryParams() {
   store.setFilters({
     title: route.query.title ?? "",
-    categoryId: route.query.categoryId ? Number(route.query.categoryId) : undefined,
-    price_min: route.query.price_min ? Number(route.query.price_min) : undefined,
-    price_max: route.query.price_max ? Number(route.query.price_max) : undefined,
+    categoryId: route.query.categoryId ? Number(route.query.categoryId) : null,
+    price_min: route.query.price_min ? Number(route.query.price_min) : null,
+    price_max: route.query.price_max ? Number(route.query.price_max) : null,
   });
 
   if (route.query.page) {
     store.setPage(Number(route.query.page));
   }
+
+  store.fetchProducts();
 }
 
-watch(() => store.products, (v) => console.log("PRODUCTS UPDATED:", v), { deep: true });
-watch(() => route.query, () => { applyQueryParams(); store.fetchProducts(); }, { immediate: true });
+// Обробка зміни сторінки пагінації
+function onPageChange(newPage: number) {
+  store.setPage(newPage);
+  store.fetchProducts();
+}
+
+// Автоматичне застосування query-параметрів при вході та змінах
+watch(
+  () => route.query,
+  () => {
+    applyQueryParams();
+  },
+  { immediate: true }
+);
 </script>
