@@ -43,9 +43,11 @@ import type { Product } from "@/types/product";
 import { useCartStore } from "@/store/cart.store";
 import { useFavoritesStore } from "@/store/favorites.store";
 
-// const props = defineProps<{
-//   product: Product;
-// }>();
+import { defineProps } from "vue";
+
+const props = defineProps<{
+  product: Product;
+}>();
 
 const cart = useCartStore();
 const favorites = useFavoritesStore();
@@ -54,3 +56,4 @@ const addToCart = (p: Product) => cart.addToCart(p);
 const toggleFavorite = (p: Product) => favorites.toggleFavorite(p);
 const isFavorite = (id: number) => favorites.favorites.some((p) => p.id === id);
 </script>
+

@@ -5,14 +5,9 @@
     <!-- Filters -->
     <FilterPanel />
 
-    <!-- Loading -->
-    <div v-if="loading" class="text-center py-4">Loading...</div>
-
-    <!-- Error -->
-    <div v-if="error" class="alert alert-danger">{{ error }}</div>
-
-    <!-- Products List -->
-    <ProductList :products="products" />
+    <ProductList :products="store.products" />
+    <div v-if="store.loading">Loading...</div>
+    <div v-if="store.error">{{ store.error }}</div>
 
     <!-- Pagination -->
     <Pagination />
@@ -29,9 +24,7 @@ import ProductList from "@/components/ProductList.vue";
 import Pagination from "@/components/Pagination.vue";
 
 const route = useRoute();
-const store = useProductsStore();
-
-const { products, loading, error } = store;
+const store = useProductsStore(); // ← залишаєш тільки це
 
 // читання query params
 function applyQueryParams() {
@@ -46,11 +39,14 @@ function applyQueryParams() {
     store.setPage(Number(route.query.page));
   }
 }
+
+// debug watcher
 watch(
   () => store.products,
   (v) => console.log("PRODUCTS UPDATED:", v),
   { deep: true }
 );
+
 // виклик API при зміні query
 watch(
   () => route.query,
