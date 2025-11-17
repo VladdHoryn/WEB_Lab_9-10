@@ -1,4 +1,3 @@
-// types/filters.ts
 export interface ProductFilters {
   title?: string        // пошук за назвою
   price_min?: number    // мінімальна ціна

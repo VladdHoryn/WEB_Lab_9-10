@@ -1,4 +1,3 @@
-// types/api.ts
 export interface ApiErrorResponse {
   message: string
   status?: number
