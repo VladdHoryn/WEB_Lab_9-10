@@ -1,28 +1,41 @@
 <template>
+  <Header />
+
   <div class="container py-4">
-    <h1>Cart</h1>
+    <h1 class="mb-4 text-center text-primary">Cart</h1>
 
-    <div v-if="items.length === 0">Cart is empty</div>
+    <div v-if="items.length === 0" class="alert alert-info text-center">
+      Cart is empty
+    </div>
 
-    <CartItem
-      v-for="i in items"
-      :key="i.product.id"
-      :item="i"
-      :update="updateQuantity"
-      :remove="removeFromCart"
-    />
+    <div class="list-group mb-3">
+      <CartItem
+        v-for="i in items"
+        :key="i.product.id"
+        :item="i"
+        :update="updateQuantity"
+        :remove="removeFromCart"
+        class="list-group-item mb-2"
+      />
+    </div>
 
-    <button
-      v-if="items.length"
-      class="btn btn-warning mt-3"
-      @click="clearCart"
-    >
-      Clear Cart
-    </button>
+    <div class="text-center">
+      <button
+        v-if="items.length"
+        class="btn btn-primary mt-3"
+        @click="clearCart"
+      >
+        Clear Cart
+      </button>
+    </div>
   </div>
+
+  <Footer />
 </template>
 
 <script setup lang="ts">
+import Header from "@/components/layout/Header.vue";
+import Footer from "@/components/layout/Footer.vue";
 import CartItem from "@/components/CarItem.vue";
 import { useCartStore } from "@/store/cart.store";
 
@@ -30,7 +43,6 @@ const store = useCartStore();
 store.loadFromLocalStorage();
 
 const items = store.items;
-
 const updateQuantity = store.updateQuantity;
 const removeFromCart = store.removeFromCart;
 const clearCart = store.clearCart;
