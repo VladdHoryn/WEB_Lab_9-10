@@ -70,7 +70,6 @@ const store = useProductStore();
 const cart = useCartStore();
 const favorites = useFavoritesStore();
 
-// Load product by ID from route
 async function loadProduct() {
   const id = Number(route.params.id);
   if (!isNaN(id)) {
