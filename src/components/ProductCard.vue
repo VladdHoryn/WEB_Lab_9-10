@@ -1,5 +1,5 @@
 <template>
-  <div class="card h-100 shadow-sm hover-shadow transition">
+  <div class="card shadow-sm hover-shadow transition mx-auto" style="max-width: 250px;">
     <img
       :src="product.images[0]"
       class="card-img-top p-3"
@@ -9,7 +9,7 @@
 
     <div class="card-body d-flex flex-column">
       <h6 class="card-title text-truncate">{{ product.title }}</h6>
-      <p class="fw-bold mb-2">{{ product.price }}$</p>
+      <p class="fw-bold mb-2 text-primary">{{ product.price }}$</p>
 
       <div class="mt-auto d-grid gap-2">
         <router-link
@@ -20,7 +20,7 @@
         </router-link>
 
         <button
-          class="btn btn-success btn-sm"
+          class="btn btn-primary btn-sm"
           @click="addToCart(product)"
         >
           Add to Cart
@@ -55,7 +55,7 @@ const isFavorite = (id: number) => favorites.favorites.some((p) => p.id === id);
 
 <style scoped>
 .hover-shadow:hover {
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.25);
   transition: all 0.3s ease-in-out;
 }
 </style>
