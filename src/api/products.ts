@@ -1,14 +1,11 @@
-// api/products.ts
 import http from '@/api/http'
 import { normalizeApiError } from '@/utils/apiError'
 import type { Product } from '@/types/product'
 
 export async function getProducts(params?: ProductsQuery): Promise<Product[]> {
-  console.log("GET PRODUCTS PARAMS:", params)
 
   try {
     const res = await http.get('/products', { params })
-    console.log("GET PRODUCTS RESPONSE:", res)
     return res
   } catch (error) {
     console.error(error)
