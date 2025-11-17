@@ -43,9 +43,9 @@ import type { Product } from "@/types/product";
 import { useCartStore } from "@/store/cart.store";
 import { useFavoritesStore } from "@/store/favorites.store";
 
-const props = defineProps<{
-  product: Product;
-}>();
+// const props = defineProps<{
+//   product: Product;
+// }>();
 
 const cart = useCartStore();
 const favorites = useFavoritesStore();

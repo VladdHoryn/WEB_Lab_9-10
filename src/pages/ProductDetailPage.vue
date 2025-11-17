@@ -1,6 +1,5 @@
 <template>
   <div class="container py-4">
-
     <div v-if="loading" class="text-center py-5">
       <div class="spinner-border"></div>
     </div>
@@ -10,7 +9,6 @@
     </div>
 
     <div v-if="product" class="row">
-
       <!-- Image -->
       <div class="col-md-5">
         <img
@@ -20,7 +18,7 @@
         />
       </div>
 
-      <!-- Product Info -->
+      <!-- Info -->
       <div class="col-md-7">
         <h2 class="mb-3">{{ product.title }}</h2>
 
@@ -28,7 +26,6 @@
 
         <h4 class="fw-bold my-3">{{ product.price }}$</h4>
 
-        <!-- Buttons -->
         <div class="d-flex gap-2 mt-4">
           <button class="btn btn-success" @click="addToCart(product)">
             Add to Cart
@@ -43,10 +40,7 @@
           </button>
         </div>
 
-        <!-- Category -->
-        <p class="mt-3">
-          <b>Category:</b> {{ product.category.name }}
-        </p>
+        <p class="mt-3"><b>Category:</b> {{ product.category.name }}</p>
 
         <p>
           <small class="text-muted">
@@ -55,7 +49,6 @@
         </p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -74,35 +67,23 @@ const productStore = useProductStore();
 const cartStore = useCartStore();
 const favoritesStore = useFavoritesStore();
 
-// addToCart
 function addToCart(product: Product) {
   cartStore.addToCart(product);
 }
 
-// toggle favorite
 function toggleFavorite(product: Product) {
   favoritesStore.toggleFavorite(product);
 }
 
-// highlight favorite status
 function isFavorite(id: number) {
   return favoritesStore.favorites.some((p) => p.id === id);
 }
 
-// load product
 onMounted(() => {
   productStore.fetchProductById(Number(route.params.id));
 });
 
-// expose state
 const product = productStore.$state.product;
 const loading = productStore.$state.loading;
 const error = productStore.$state.error;
 </script>
-
-<style scoped>
-.spinner-border {
-  width: 3rem;
-  height: 3rem;
-}
-</style>
