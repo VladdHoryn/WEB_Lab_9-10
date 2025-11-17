@@ -1,9 +1,9 @@
 <template>
   <div class="row">
     <div
-      class="col-md-3 mb-3"
       v-for="p in favorites"
       :key="p.id"
+      class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
     >
       <ProductCard :product="p" />
     </div>
@@ -14,7 +14,5 @@
 import type { Product } from "@/types/product";
 import ProductCard from "./ProductCard.vue";
 
-defineProps<{
-  favorites: Product[];
-}>();
+defineProps<{ favorites: Product[] }>();
 </script>

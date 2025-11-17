@@ -3,53 +3,26 @@
     <h5 class="mb-3">Filters</h5>
 
     <div class="row g-3">
-      <!-- Title -->
       <div class="col-md-4">
         <label class="form-label">Search</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="filters.title"
-          @input="updateQuery"
-        />
+        <input type="text" class="form-control" v-model="filters.title" @input="updateQuery" />
       </div>
 
-      <!-- Min -->
       <div class="col-md-2">
         <label class="form-label">Min Price</label>
-        <input
-          type="number"
-          class="form-control"
-          v-model.number="filters.price_min"
-          @input="updateQuery"
-        />
+        <input type="number" class="form-control" v-model.number="filters.price_min" @input="updateQuery" />
       </div>
 
-      <!-- Max -->
       <div class="col-md-2">
         <label class="form-label">Max Price</label>
-        <input
-          type="number"
-          class="form-control"
-          v-model.number="filters.price_max"
-          @input="updateQuery"
-        />
+        <input type="number" class="form-control" v-model.number="filters.price_max" @input="updateQuery" />
       </div>
 
-      <!-- Category -->
       <div class="col-md-3">
         <label class="form-label">Category</label>
-        <select
-          class="form-select"
-          v-model.number="filters.categoryId"
-          @change="updateQuery"
-        >
+        <select class="form-select" v-model.number="filters.categoryId" @change="updateQuery">
           <option value="">All</option>
-          <option
-            v-for="c in categoriesStore.categories"
-            :key="c.id"
-            :value="c.id"
-          >
+          <option v-for="c in categoriesStore.categories" :key="c.id" :value="c.id">
             {{ c.name }}
           </option>
         </select>
@@ -61,8 +34,8 @@
 <script setup lang="ts">
 import { reactive } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import type { ProductFilters } from "@/types/filters";
 import { useCategoriesStore } from "@/store/categories.store";
+import type { ProductFilters } from "@/types/filters";
 
 const route = useRoute();
 const router = useRouter();
@@ -70,7 +43,6 @@ const categoriesStore = useCategoriesStore();
 
 categoriesStore.fetchCategories();
 
-// LOCAL reactive copy (не ламає URL поки юзер вводить)
 const filters = reactive<ProductFilters>({
   title: (route.query.title as string) || "",
   price_min: route.query.price_min ? Number(route.query.price_min) : undefined,
@@ -78,7 +50,6 @@ const filters = reactive<ProductFilters>({
   categoryId: route.query.categoryId ? Number(route.query.categoryId) : undefined,
 });
 
-// оновити URL → викликає fetchProducts()
 function updateQuery() {
   router.push({
     path: "/",
@@ -88,7 +59,7 @@ function updateQuery() {
       price_min: filters.price_min || undefined,
       price_max: filters.price_max || undefined,
       categoryId: filters.categoryId || undefined,
-      page: 1, // reset page
+      page: 1,
     },
   });
 }

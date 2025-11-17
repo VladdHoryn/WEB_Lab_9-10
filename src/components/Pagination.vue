@@ -1,16 +1,16 @@
 <template>
-  <nav>
+  <nav aria-label="Page navigation">
     <ul class="pagination justify-content-center mt-4">
       <li class="page-item" :class="{ disabled: page <= 1 }">
-        <button class="page-link" @click="prev">Prev</button>
+        <button class="page-link">Prev</button>
       </li>
 
-      <li class="page-item">
+      <li class="page-item active">
         <span class="page-link">{{ page }}</span>
       </li>
 
       <li class="page-item">
-        <button class="page-link" @click="next">Next</button>
+        <button class="page-link">Next</button>
       </li>
     </ul>
   </nav>
@@ -41,10 +41,7 @@ function prev() {
 function apply() {
   router.push({
     path: "/",
-    query: {
-      ...route.query,
-      page: store.page,
-    },
+    query: { ...route.query, page: store.page },
   });
 }
 </script>
