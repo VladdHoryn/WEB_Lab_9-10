@@ -4,21 +4,13 @@
 
     <div v-if="favorites.length === 0">No favorites yet</div>
 
-    <div class="row">
-      <div
-        class="col-md-3 mb-3"
-        v-for="p in favorites"
-        :key="p.id"
-      >
-        <ProductCard :product="p" />
-      </div>
-    </div>
+    <FavoritesList :favorites="favorites" />
   </div>
 </template>
 
 <script setup lang="ts">
+import FavoritesList from "@/components/FavoritesList.vue";
 import { useFavoritesStore } from "@/store/favorites.store";
-import ProductCard from "@/components/ProductCard.vue";
 
 const store = useFavoritesStore();
 store.loadFromLocalStorage();
