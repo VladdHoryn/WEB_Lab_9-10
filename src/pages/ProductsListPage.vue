@@ -44,7 +44,6 @@ import { useProductsStore } from "@/store/products.store";
 const route = useRoute();
 const store = useProductsStore();
 
-// Застосовуємо фільтри з query-параметрів
 function applyQueryParams() {
   store.setFilters({
     title: route.query.title ?? "",
@@ -60,13 +59,11 @@ function applyQueryParams() {
   store.fetchProducts();
 }
 
-// Обробка зміни сторінки пагінації
 function onPageChange(newPage: number) {
   store.setPage(newPage);
   store.fetchProducts();
 }
 
-// Автоматичне застосування query-параметрів при вході та змінах
 watch(
   () => route.query,
   () => {
