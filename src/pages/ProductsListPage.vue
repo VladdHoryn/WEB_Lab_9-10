@@ -46,7 +46,11 @@ function applyQueryParams() {
     store.setPage(Number(route.query.page));
   }
 }
-
+watch(
+  () => store.products,
+  (v) => console.log("PRODUCTS UPDATED:", v),
+  { deep: true }
+);
 // виклик API при зміні query
 watch(
   () => route.query,
