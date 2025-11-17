@@ -1,6 +1,6 @@
 <template>
   <header class="navbar navbar-expand-lg navbar-dark bg-primary px-3 shadow-sm">
-    <RouterLink class="navbar-brand fw-bold" to="/">E-Commerce</RouterLink>
+    <a class="navbar-brand fw-bold" href="/">E-Commerce</a>
 
     <button
       class="navbar-toggler"
@@ -16,6 +16,7 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto gap-3">
+
         <li class="nav-item">
           <RouterLink class="nav-link" to="/">Products</RouterLink>
         </li>
@@ -26,23 +27,24 @@
           <RouterLink class="nav-link" to="/cart">Cart</RouterLink>
         </li>
 
-        <!-- якщо НЕ залогінений -->
+        <!-- Якщо користувач НЕ авторизований -->
         <li class="nav-item" v-if="!authStore.isAuth">
-          <RouterLink
-            to="/login"
-            class="btn btn-warning text-dark fw-bold px-3"
-          >
+          <RouterLink to="/login" class="btn btn-warning text-dark fw-bold px-3">
             Login
           </RouterLink>
         </li>
 
-        <!-- якщо залогінений -->
+        <!-- Якщо користувач АВТОРИЗОВАНИЙ -->
         <li
           class="nav-item d-flex align-items-center gap-2 text-white"
-          v-else
+          v-if="authStore.isAuth"
         >
           👋 Hello, <strong>{{ authStore.user?.name }}</strong>
-          <button class="btn btn-outline-light btn-sm" @click="onLogout">
+
+          <button
+            class="btn btn-outline-light btn-sm"
+            @click="onLogout"
+          >
             Logout
           </button>
         </li>
@@ -53,7 +55,7 @@
 
 <script setup lang="ts">
 import { useAuthStore } from "@/store/authStore";
-import { useRouter, RouterLink } from "vue-router";
+import { useRouter } from "vue-router";
 
 const authStore = useAuthStore();
 const router = useRouter();
