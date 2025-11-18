@@ -6,7 +6,7 @@ export async function getProducts(params?: ProductsQuery): Promise<Product[]> {
 
   try {
     const res = await http.get('/products', { params })
-    return res
+    return res.data;
   } catch (error) {
     console.error(error)
     throw normalizeApiError(error)

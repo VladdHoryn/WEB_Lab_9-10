@@ -16,7 +16,7 @@ export const useCategoriesStore = defineStore("categories", {
 
       try {
         this.categories = await getCategories();
-      } catch (err: never) {
+      } catch (err: any) {
         this.error = err.message;
       } finally {
         this.loading = false;
