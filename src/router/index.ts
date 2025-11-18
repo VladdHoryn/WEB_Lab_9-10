@@ -5,12 +5,17 @@ import ProductDetailPage from "@/pages/ProductDetailPage.vue";
 import CartPage from "@/pages/CartPage.vue";
 import FavoritesPage from "@/pages/FavoritesPage.vue";
 import NotFoundPage from "@/pages/NotFoundPage.vue";
+import LoginPage from "@/pages/LoginPage.vue";
+
+import { useAuthStore } from "@/store/authStore";
+import { storeToRefs } from "pinia";
 
 export const router = createRouter({
   history: createWebHistory(),
 
   routes: [
     { path: "/", component: ProductsListPage },
+    { path: "/login", component: LoginPage },
     { path: "/product/:id", component: ProductDetailPage, props: true },
     { path: "/cart", component: CartPage },
     { path: "/favorites", component: FavoritesPage },
@@ -22,4 +27,17 @@ export const router = createRouter({
     if (savedPosition) return savedPosition;
     return { top: 0 };
   },
+});
+
+
+router.beforeEach((to, from, next) => {
+  const auth = useAuthStore();
+
+  const protectedRoutes = ["/favorites", "/cart"];
+
+  if (protectedRoutes.includes(to.path) && !auth.isAuth) {
+    return next("/login");
+  }
+
+  next();
 });
