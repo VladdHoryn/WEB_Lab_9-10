@@ -8,10 +8,9 @@ import NotFoundPage from "@/pages/NotFoundPage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 
 import { useAuthStore } from "@/store/authStore";
-import { storeToRefs } from "pinia";
 
 export const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory("/WEB_Lab_9-10/"),
 
   routes: [
     { path: "/", component: ProductsListPage },
