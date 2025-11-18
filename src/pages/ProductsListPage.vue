@@ -22,7 +22,6 @@
     <Pagination
       class="d-flex justify-content-center mt-4"
       :current-page="store.page"
-      :total-items="store.total"
       :page-size="store.limit"
       @update:page="onPageChange"
     />
